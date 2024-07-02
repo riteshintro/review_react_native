@@ -1,13 +1,23 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text } from 'react-native'
 import React, { useRef } from 'react'
 import { useLocalSearchParams } from 'expo-router';
 import { useRoute } from 'expo-router';
 import { Rating } from 'react-native-ratings';
-import { Avatar } from 'react-native-paper';
+import { Avatar, Button, Card } from 'react-native-paper';
 import ViewShot from "react-native-view-shot";
 // import * as Share from 'react-native-share';
 import * as Sharing from 'expo-sharing';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { AntDesign } from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
+import BasicShare from '../components/share-review/BasicShare';
+import GoldShare from '../components/share-review/GoldShare';
+import CustomShare from '../components/share-review/CustomShare';
+import DefaultShare from '../components/share-review/DefaultShare';
+import DiamondShare from '../components/share-review/DiamonShare';
+import PlatinumShare from '../components/share-review/PlatinumShare';
+import ClasicShare from '../components/share-review/ClassicShare';
+import ClassicShare from '../components/share-review/ClassicShare';
 
 // import Share from 'react-native-share';
 // import { useSearchParams } from 'expo-router'; 
@@ -17,9 +27,8 @@ const ReviewShare = () => {
   const Tab = createMaterialTopTabNavigator();
   const params = useLocalSearchParams()
   const ratingValue = 5; 
-  // console.log(ratingValue)
-  // console.log(params)
   const ref = useRef(null);
+
 
   const handleShareShot = async () => {
     if (ref.current) {
@@ -39,150 +48,44 @@ const ReviewShare = () => {
       }
     }
   };
-
+  const Custom=()=>{
+    return(
+      <CustomShare/>
+    )
+  }
+  const Default =()=>{
+    return(  
+ <DefaultShare params={params}/>
+    )
+  
+  }
 const Basic =()=>{
-  return(  <View style={{padding:5}}>
-    <Text>ReviewShare</Text>
-    <ViewShot ref={ref} options={{ fileName: "Your-File-Name", format: "jpg", quality: 0.9 }}>
-    <View style={{backgroundColor:"gray",padding:20,borderRadius:16}}>
-    <View style={{backgroundColor:"white",width:"100%", minHeight:300,borderRadius:20,padding:0}}>
-      <Text style={{color:"black",minHeight:150,margin:20}}>{params.text}</Text>
-      <View style={{flex:1,flexDirection:"row",marginHorizontal:20}}>
-      <Rating
-        type="star"
-        fractions={1}
-        startingValue={params.rating}
-        imageSize={20}
-        // onFinishRating={handleRatingChange}
-      />
-    
-        <Avatar.Image style={{marginHorizontal:10}} size={24} source={{ uri: 'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?t=st=1717577926~exp=1717581526~hmac=e3f265de67ff462c47ebed1421878e7f9497deb01e80f460974c5f9d115dd48b&w=996' }} />
-        <Text>Ritesh  maurya</Text>
-  </View>
-  <View style={{backgroundColor:"blue", minHeight:60,borderBottomEndRadius:20,borderBottomStartRadius:20}}>
-    <Text style={{color:"white", fontWeight:"bold"}}>Ample Mortage</Text>
-  </View>
-    </View>
-    </View>
-    </ViewShot>
-    <Button title='share' onPress={handleShareShot}/>
-  </View>)
+  return(  
+  <BasicShare params={params}/>
+  )
 
 }
 const Platinum =()=>{
-  return(  <View style={{padding:5,backgroundColor:"white",height:"100%"}}>
-    <Text>Platinum</Text>
-    <ViewShot ref={ref} options={{ fileName: "Your-File-Name", format: "jpg", quality: 0.9 }}>
-    <View style={{backgroundColor:"gray",padding:20,borderRadius:16}}>
-    <View style={{backgroundColor:"white",width:"100%", minHeight:300,borderRadius:20,padding:0}}>
-      <Text style={{color:"black",minHeight:150,margin:20}}>{params.text}</Text>
-      <View style={{flex:1,flexDirection:"row",marginHorizontal:20}}>
-      <Rating
-        type="star"
-        fractions={1}
-        startingValue={params.rating}
-        imageSize={20}
-        // onFinishRating={handleRatingChange}
-      />
-    
-        <Avatar.Image style={{marginHorizontal:10}} size={24} source={{ uri: 'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?t=st=1717577926~exp=1717581526~hmac=e3f265de67ff462c47ebed1421878e7f9497deb01e80f460974c5f9d115dd48b&w=996' }} />
-        <Text>Ritesh  maurya</Text>
-  </View>
-  <View style={{backgroundColor:"blue", minHeight:60,borderBottomEndRadius:20,borderBottomStartRadius:20}}>
-    <Text style={{color:"white", fontWeight:"bold"}}>Ample Mortage</Text>
-  </View>
-    </View>
-    </View>
-    </ViewShot>
-    <Button title='share' onPress={handleShareShot}/>
-  </View>)
+  return(  
+    <PlatinumShare  params={params}/>)
 
 }
 const Classic =()=>{
-  return(  <View style={{padding:5}}>
-    <Text>ReviewShare</Text>
-    <ViewShot ref={ref} options={{ fileName: "Your-File-Name", format: "jpg", quality: 0.9 }}>
-    <View style={{backgroundColor:"gray",padding:20,borderRadius:16}}>
-    <View style={{backgroundColor:"white",width:"100%", minHeight:300,borderRadius:20,padding:0}}>
-      <Text style={{color:"black",minHeight:150,margin:20}}>{params.text}</Text>
-      <View style={{flex:1,flexDirection:"row",marginHorizontal:20}}>
-      <Rating
-        type="star"
-        fractions={1}
-        startingValue={params.rating}
-        imageSize={20}
-        // onFinishRating={handleRatingChange}
-      />
-    
-        <Avatar.Image style={{marginHorizontal:10}} size={24} source={{ uri: 'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?t=st=1717577926~exp=1717581526~hmac=e3f265de67ff462c47ebed1421878e7f9497deb01e80f460974c5f9d115dd48b&w=996' }} />
-        <Text>Ritesh  maurya</Text>
-  </View>
-  <View style={{backgroundColor:"blue", minHeight:60,borderBottomEndRadius:20,borderBottomStartRadius:20}}>
-    <Text style={{color:"white", fontWeight:"bold"}}>Ample Mortage</Text>
-  </View>
-    </View>
-    </View>
-    </ViewShot>
-    <Button title='share' onPress={handleShareShot}/>
-  </View>)
+  return(  
+<ClassicShare params={params}/>
+  )
 
 }
 const Gold =()=>{
-  return(  <View style={{padding:5}}>
-    <Text>ReviewShare</Text>
-    <ViewShot ref={ref} options={{ fileName: "Your-File-Name", format: "jpg", quality: 0.9 }}>
-    <View style={{backgroundColor:"gray",padding:20,borderRadius:16}}>
-    <View style={{backgroundColor:"white",width:"100%", minHeight:300,borderRadius:20,padding:0}}>
-      <Text style={{color:"black",minHeight:150,margin:20}}>{params.text}</Text>
-      <View style={{flex:1,flexDirection:"row",marginHorizontal:20}}>
-      <Rating
-        type="star"
-        fractions={1}
-        startingValue={params.rating}
-        imageSize={20}
-        // onFinishRating={handleRatingChange}
-      />
-    
-        <Avatar.Image style={{marginHorizontal:10}} size={24} source={{ uri: 'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?t=st=1717577926~exp=1717581526~hmac=e3f265de67ff462c47ebed1421878e7f9497deb01e80f460974c5f9d115dd48b&w=996' }} />
-        <Text>Ritesh  maurya</Text>
-  </View>
-  <View style={{backgroundColor:"blue", minHeight:60,borderBottomEndRadius:20,borderBottomStartRadius:20}}>
-    <Text style={{color:"white", fontWeight:"bold"}}>Ample Mortage</Text>
-  </View>
-    </View>
-    </View>
-    </ViewShot>
-    <Button title='share' onPress={handleShareShot}/>
-  </View>)
+  return(  
+  <GoldShare params={params}/>
+  )
 
 }
 const Diamond =()=>{
-  return(  <View style={{padding:5}}>
-    <Text>ReviewShare</Text>
-    <ViewShot ref={ref} options={{ fileName: "Your-File-Name", format: "jpg", quality: 0.9 }}>
-    <View style={{backgroundColor:"gray",padding:20,borderRadius:16}}>
-    <View style={{backgroundColor:"white",width:"100%", minHeight:300,borderRadius:20,padding:0}}>
-      <Text style={{color:"black",minHeight:150,margin:20}}>{params.text}</Text>
-      <View style={{flex:1,flexDirection:"row",marginHorizontal:20}}>
-      <Rating
-        type="star"
-        fractions={1}
-        startingValue={params.rating}
-        imageSize={20}
-        // onFinishRating={handleRatingChange}
-      />
-    
-        <Avatar.Image style={{marginHorizontal:10}} size={24} source={{ uri: 'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?t=st=1717577926~exp=1717581526~hmac=e3f265de67ff462c47ebed1421878e7f9497deb01e80f460974c5f9d115dd48b&w=996' }} />
-        <Text>Ritesh  maurya</Text>
-  </View>
-  <View style={{backgroundColor:"blue", minHeight:60,borderBottomEndRadius:20,borderBottomStartRadius:20}}>
-    <Text style={{color:"white", fontWeight:"bold"}}>Ample Mortage</Text>
-  </View>
-    </View>
-    </View>
-    </ViewShot>
-    <Button title='share' onPress={handleShareShot}/>
-  </View>)
+  return(
+    <DiamondShare params={params}/>
+  )
 
 }
   return (
@@ -196,6 +99,8 @@ const Diamond =()=>{
         // tabBarStyle: { backgroundColor: 'black' },
       }}
     >
+    <Tab.Screen name="Default" component={Default} />
+    <Tab.Screen name="Custom" component={Custom} />
     <Tab.Screen name="Basic" component={Basic} />
     <Tab.Screen name="Classic" component={Classic} />
     <Tab.Screen name="Platinum" component={Platinum} />

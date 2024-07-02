@@ -22,7 +22,6 @@ const  Filter = ({ navigation }) => {
       }
       useEffect(()=>{
     getIntegration({ sorce: "" }).then((res)=>{
-        // console.log(res.data.data,"get Integration")
         setInterationList(res?.data?.data)
     })
       },[])

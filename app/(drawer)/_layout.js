@@ -2,7 +2,7 @@ import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Drawer } from 'expo-router/drawer';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import {router,usePathname} from 'expo-router';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {Image, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -17,7 +17,7 @@ import { Avatar, Button } from 'react-native-paper';
 export default function Layout() {
 const pathname=usePathname()
 const bottomSheetRef = useRef(null);
-
+const [companyData, setCompanyData]=useState({})
 const snapPoints = useMemo(() => ['25%', '70%'], []);
 
 const handleClosePress = () => {
@@ -39,8 +39,15 @@ const removeValue = async () => {
     // remove error
   }
 
-  console.log('Done.')
+  // console.log('Done.')
 }
+useEffect(()=>{
+  AsyncStorage.getItem('company').then((res)=>{
+    const value = JSON.parse(res);
+ console.log(value[0],"company")
+ setCompanyData(value[0])
+  })
+},[])
     const CustomDrawerContent = (props) => {
         return(
           <View style={{flex:1}}>
@@ -49,11 +56,13 @@ const removeValue = async () => {
       
          <View style={styles.userInfoWrapper}>
           <View style={styles.userImageWrapper}>
+            <View style={{borderColor:"lightgray", borderWidth:1,borderRadius:50}}>
           <Image
-            source={{ uri: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' }}
+            source={{ uri: `http://174.138.3.35/collect_review/public/company_logo/${companyData?.logo}` }}
             style={styles.userProfile}
           />
-          <Text style={{fontWeight:"bold",marginVertical:5}}>PriFab Pvt Ltd</Text>
+          </View>
+          <Text style={{fontWeight:"bold",marginVertical:5}}>{companyData?.company_name}</Text>
           </View>
   {/* <View><Ionicons name="ellipsis-vertical-circle" size={24} color="black" onPress={handleOpenPress} /></View> */}
         </View>
@@ -90,6 +99,14 @@ const removeValue = async () => {
         labelStyle={{color:"#000"}}
         onPress={() => {
         router.push('/analysis');
+        }} 
+        />
+                <DrawerItem
+        icon={({ color, size }) => (<Entypo name="line-graph" size={24}  color="black" />)}
+        label={"Scanner"}
+        labelStyle={{color:"#000"}}
+        onPress={() => {
+        router.push('/scanner');
         }} 
         />
         <DrawerItem
@@ -144,7 +161,7 @@ const styles = StyleSheet.create({
    flex:1,
   //  flexDirection:"column",
    alignItems:"center",
-   alignSelf:"center"
+   alignSelf:"center",
   },
   userProfile:{ 
     width: 60, 

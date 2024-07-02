@@ -32,7 +32,6 @@ export default function HomeScreen() {
   const [refreshing, setRefreshing] = useState(false);
   // const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient)
 
-  // console.log(params.rating,"rationg")
   const searchInputHeight = scrollY.interpolate({
     inputRange: [0, 40],
     outputRange: [40, 0],
@@ -64,7 +63,6 @@ const fetchData = async (pageNum = 1, isRefreshing = false) => {
       rating: params.rating, 
       type: params.selectedType 
     });
-// console.log(res.data.data)
     setShowSimmer(false);
     setRefreshing(false);
     // setLoading(false)
@@ -112,7 +110,6 @@ const fetchData = async (pageNum = 1, isRefreshing = false) => {
     setPage(1); // Reset page to 1
     fetchData(1, true); // Pass true to indicate refresh
   };
-// console.log(debouncedSearchQuery)
 const renderSimmer = () => (
   <View style={{ alignSelf: "center", width: "90%", marginVertical: 10 }}>
     {[...Array(5)].map((_, index) => (

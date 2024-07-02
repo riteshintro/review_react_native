@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native';
 import { useRef } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LoginUser } from '../services';
+import { LoginUser,geCompanyById } from '../services';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 
@@ -19,11 +19,12 @@ export default function Login() {
         try {
             // await AsyncStorage.setItem('my-key', value);
             LoginUser({email:email, password:password}).then((res)=>{
-                // console.log(res.data.data.token)
                 AsyncStorage.setItem('token',JSON.stringify(res.data.data.token)).then(()=>{
                     router.push("/(drawer)")
                 });
-    
+                geCompanyById().then((res)=>{
+                  AsyncStorage.setItem('company',JSON.stringify(res.data.data))
+                })
             })
           } catch (e) {
             // saving error

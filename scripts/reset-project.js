@@ -46,13 +46,13 @@ fs.rename(oldDirPath, newDirPath, (error) => {
   if (error) {
     return console.error(`Error renaming directory: ${error}`);
   }
-  console.log('/app moved to /app-example.');
+  // console.log('/app moved to /app-example.');
 
   fs.mkdir(newAppDirPath, { recursive: true }, (error) => {
     if (error) {
       return console.error(`Error creating new app directory: ${error}`);
     }
-    console.log('New /app directory created.');
+    // console.log('New /app directory created.');
 
     const indexPath = path.join(newAppDirPath, 'index.tsx');
     fs.writeFile(indexPath, indexContent, (error) => {

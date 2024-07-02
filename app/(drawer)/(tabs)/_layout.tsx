@@ -13,12 +13,12 @@ import { Text, View,Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { router, usePathname } from "expo-router";
+import TabBar from '../../../components/TabBar'
 // import { AntDesign } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const params = useLocalSearchParams()
-  console.log(params.rating,"rating in tab")
   const firstFilter = (params?.rating ?? "") === "" ? 0 : 1;
   const secondFilter = (params?.selectedType ?? "") === "" ? 0 : 1;
   const totalFilter = firstFilter + secondFilter;

@@ -9,19 +9,20 @@ import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { TouchableHighlight, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 import { router, usePathname } from "expo-router";
-import { listCompany } from "../../../services";
+import { EnableCompany, listCompany } from "../../../services";
 import { Entypo } from '@expo/vector-icons';
 // import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
   const sheetRef = useRef(null);
   const [companyDataSheet,setCompanyDataSheet]=useState("")
-
+  const [companyData, setCompanyData]=useState({})
+  const [refetch, setRefetch]=useState(false)
   // Define snap points
   const snapPoints = useMemo(() => ["60%"], []);
 
   const handleSheetChanges = (index) => {
-    // console.log("handleSheetChanges", index);
   };
   const handleOpenSheet = () => {
     sheetRef.current?.expand();
@@ -44,7 +45,21 @@ const Profile = () => {
   // console.log(res.data.data)
   setCompanyDataSheet(res?.data?.data ? res?.data?.data : [])
     })
+  },[refetch])
+  useEffect(()=>{
+    AsyncStorage.getItem('company').then((res)=>{
+      const value = JSON.parse(res);
+   console.log(value[0],"company")
+   setCompanyData(value[0])
+    })
   },[])
+  const handleEnableCompany=(id)=>{
+    console.log(id, "comapny id")
+    EnableCompany({id:id}).then((res)=>{
+      console.log(res, "response comapny")
+      setRefetch(!refetch)
+    })
+  }
   return (
     <View style={{ flex: 1 }}>
       <SafeAreaView>
@@ -187,9 +202,9 @@ const Profile = () => {
           return(
             <View key={index} style={{justifyContent:"space-between", flexDirection:"row",alignItems:"center"}}>
             <View style={styles.itemContainer} >
-            <Avatar.Image size={40} source={{uri:`http://174.138.3.35/collect_review/public/company_logo/${item.logo}`}} /><Text style={{fontWeight:"bold"}}>{item.company_name}</Text>
+            <Avatar.Image size={40} source={{uri:`http://174.138.3.35/collect_review/public/company_logo/${item?.logo}`}} /><Text style={{fontWeight:"bold"}}>{item?.company_name}</Text>
           </View>
-          <View>{item.enable_mode?<Ionicons name="checkmark-circle" size={24} color="#06D001" />:<Entypo name="circle" size={20} color="black" />}</View>
+          <View>{companyData?.id===item?.id?<Ionicons name="checkmark-circle" size={24} color="#06D001" />:<TouchableOpacity onPress={()=>handleEnableCompany(item?.id)}><Entypo name="circle" size={20} color="black" /></TouchableOpacity>}</View>
           </View>
           )
         })

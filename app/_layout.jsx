@@ -20,6 +20,7 @@ import {PortalProvider} from "@gorhom/portal"
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [token, setToken]=useState(false)
+
   const router = useRouter();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -47,13 +48,13 @@ export default function RootLayout() {
   useEffect(() => {
     AsyncStorage.getItem('token').then((res)=>{
       const value = JSON.parse(res);
-      // console.log(value,"token")
       if (value == null) { 
         router.replace('/login'); 
       } else {
         router.replace('/(drawer)'); 
       }
     })
+
   }, [router]);
   return (
 

@@ -20,7 +20,6 @@ const QrCode = () => {
   
   useEffect(()=>{
     getQrCode().then((res)=>{
-      // console.log(res.data.data)
       setQrCodeData(res.data.data)
     })
   },[])
@@ -81,7 +80,6 @@ const QrCode = () => {
         // Create a local file path to save the image
         const fileUri = FileSystem.documentDirectory + 'qr-code.png';
 
-        // console.log(fileUri)
 
         // Save the captured image to the local file system
         await FileSystem.writeAsStringAsync(fileUri, result, {
@@ -126,7 +124,7 @@ const QrCode = () => {
       <View style={styles.qrCodeContainer}>
         <QRCode
           value="http://awesome.link.qr"
-          logo={logoFromFile}
+          // logo={logoFromFile}
           logoBackgroundColor="gray"
           logoBorderRadius={10}
           size={150}
